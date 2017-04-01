@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CashTrack</string>
+    <string name="title_activity_list">List</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_monthly">Monthly Reports</string>
+    <string name="title_activity_graph">Graph</string>
+    <string name="title_activity_edit">Edit</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_faq">Frequently Ask Questions</string>
+    <string name="title_activity_addaccount">Add Accounts</string>
+
+
+</resources>

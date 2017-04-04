@@ -1,101 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="trainedge.cashtrack.SignupActivity">
+    android:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp"
-        android:fontFamily="serif-monospace"
-        android:text="Signup Form"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="71dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="trainedge.cashtrack.SignupActivity"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="56dp"
-        android:layout_toStartOf="@+id/edtname"
-        android:text="Name :"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Register to Continue"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="71dp" />
 
-    <EditText
-        android:id="@+id/edtname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter Your Name"
-        android:inputType="textPersonName"
-        android:layout_alignBaseline="@+id/textView4"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="28dp" />
+        <EditText
+            android:id="@+id/edtname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Enter Your Name"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtemail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edtname"
-        android:layout_below="@+id/edtname"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Enter your E-mail Id"
-        android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/etoccupation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Enter Your Occupation"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_alignTop="@+id/edtemail"
-        android:layout_marginTop="11dp"
-        android:text="E-mail :"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/edtemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/edtname"
+            android:layout_below="@+id/edtname"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Enter your E-mail Id"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_below="@+id/edtemail"
-        android:layout_marginTop="37dp"
-        android:text="Phone :"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/edtphoneno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/edtemail"
+            android:layout_below="@+id/edtemail"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Enter your Contact No."
+            android:inputType="phone"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtphoneno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignStart="@+id/edtemail"
-        android:ems="10"
-        android:hint="Enter your Contact No."
-        android:inputType="phone" />
+        <EditText
+            android:id="@+id/edtpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/edtphoneno"
+            android:layout_below="@+id/edtphoneno"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Enter your Password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnsignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SignUp"
-        android:layout_below="@+id/edtphoneno"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="75dp" />
+        <EditText
+            android:id="@+id/edtPassConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/edtphoneno"
+            android:layout_below="@+id/edtphoneno"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Confirm your Password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/edtsal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/edtpass"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="Enter your Salary"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsignup"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtsal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="SignUp"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -27,9 +27,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent signup=new Intent(LoginActivity.this,SignupActivity.class);
-        startActivity(signup);
-        Intent login=new Intent(LoginActivity.this,List.class);
-        startActivity(login);
+        switch (v.getId()) {
+            case R.id.btnlogin:
+                Intent signup = new Intent(LoginActivity.this, ListActivity.class);
+                startActivity(signup);
+                break;
+            case R.id.txtSingnup:
+                Intent login = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(login);
+                break;
+            case R.id.txtforgotPassword:
+                //TODO  write email intent to send the stored password to user email address
+                break;
+        }
     }
 }

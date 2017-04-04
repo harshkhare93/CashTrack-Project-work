@@ -3,8 +3,6 @@ package trainedge.cashtrack;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,8 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class List extends AppCompatActivity
+public class ListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -25,15 +24,35 @@ public class List extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchNewExpenseActivity();
+            }
+        });
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                launchFagActivity();
+                return true;
+            }
+        });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void launchNewExpenseActivity() {
+    }
+
+    private void launchFagActivity() {
+        
     }
 
     @Override
@@ -76,34 +95,33 @@ public class List extends AppCompatActivity
 
         if (id == R.id.nav_cal) {
             // Handle the calender action
-            Intent cal=new Intent(List.this,CalenderActivity.class);
+            Intent cal = new Intent(ListActivity.this, CalenderActivity.class);
             startActivity(cal);
         } else if (id == R.id.nav_monthly) {
-            Intent monthly=new Intent(List.this,MonthlyActivity.class);
+            Intent monthly = new Intent(ListActivity.this, MonthlyActivity.class);
             startActivity(monthly);
 
         } else if (id == R.id.nav_graph) {
-            Intent graph=new Intent(List.this,GraphActivity.class);
+            Intent graph = new Intent(ListActivity.this, GraphActivity.class);
             startActivity(graph);
 
         } else if (id == R.id.nav_edit) {
-            Intent edit=new Intent(List.this,EditActivity.class);
+            Intent edit = new Intent(ListActivity.this, EditActivity.class);
             startActivity(edit);
 
         } else if (id == R.id.nav_setting) {
-            Intent settings=new Intent(List.this,SettingsActivity.class);
+            Intent settings = new Intent(ListActivity.this, SettingsActivity.class);
             startActivity(settings);
 
         } else if (id == R.id.nav_faq) {
-            Intent faq=new Intent(List.this,FAQActivity.class);
+            Intent faq = new Intent(ListActivity.this, FAQActivity.class);
             startActivity(faq);
 
         } else if (id == R.id.nav_add_account) {
-            Intent addaccount=new Intent(List.this,AddaccountActivity.class);
+            Intent addaccount = new Intent(ListActivity.this, AddaccountActivity.class);
             startActivity(addaccount);
 
         } else if (id == R.id.nav_logout) {
-
 
 
         }

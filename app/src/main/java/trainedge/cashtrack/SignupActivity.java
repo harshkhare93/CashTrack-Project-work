@@ -111,7 +111,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             //Check for duplicate usernames
             if (user.getCount() > 0) {
                 Snackbar.make(signup, "The username is already registered", Snackbar.LENGTH_SHORT).show();
-                user.close();
                 return;
             }
 
@@ -124,7 +123,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             //Create the new username.
             long id = dbHelper.createUser(name, pass, email, phone, salaryVal, occupation);
             if (id > 0) {
-
+                saveLoggedInUId(id,email,pass);
                 BackToLogin();
             } else {
                 Snackbar.make(signup, "Failed to create new username", Snackbar.LENGTH_SHORT).show();
@@ -135,21 +134,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    private void saveLoggedInUId(long id, String username, String password) {
+    private void saveLoggedInUId(long id, String email, String password) {
         SharedPreferences settings = getSharedPreferences(Constants.MY_PREFS, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong("uid", id);
-        editor.putString("username", username);
+        editor.putString("email", email);
         editor.putString("password", password);
         editor.apply();
     }
-
 
     /**
      * Clears the registration fields.
      */
     private void ClearForm() {
-        saveLoggedInUId(0, "", "");
+
         edtPass.setText("");
         edtSal.setText("");
         edtOccupation.setText("");

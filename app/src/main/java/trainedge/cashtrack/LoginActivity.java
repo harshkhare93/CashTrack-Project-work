@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnlogin;
-    private TextView signup;
     private EditText edtId;
     private EditText edtPassword;
 
@@ -22,9 +20,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        btnlogin = (Button) findViewById(R.id.btnlogin);
+        Button btnlogin = (Button) findViewById(R.id.btnlogin);
         TextView forgotpassword = (TextView) findViewById(R.id.txtforgotPassword);
-        signup = (TextView) findViewById(R.id.txtSingnup);
+        TextView signup = (TextView) findViewById(R.id.txtSingnup);
         edtId = (EditText) findViewById(R.id.edtID);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         signup.setOnClickListener(this);
@@ -34,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        SharedPreferences settings = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);
         switch (v.getId()) {
             case R.id.btnlogin:
                 if (validateUserLogin()) {
@@ -43,17 +42,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.txtSingnup:
-                if (!getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE).contains("uid")) {
+                if (settings.getString("email","").length() > 3) {
+                    Snackbar.make(edtId, "You are already registered", Snackbar.LENGTH_INDEFINITE).show();
+                } else {
                     Intent login = new Intent(LoginActivity.this, SignupActivity.class);
                     startActivity(login);
-                } else {
-                    Snackbar.make(edtId, "You are already registered", Snackbar.LENGTH_INDEFINITE).show();
                 }
                 break;
             case R.id.txtforgotPassword:
-                SharedPreferences settings = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);
 
-                if (settings.contains("email")) {
+
+                if (settings.getString("email","").length() > 3) {
                     String savedEmail = settings.getString("email", "");
                     String savedPassword = settings.getString("password", "");
                     composeEmail(new String[]{savedEmail}, "Password recovery mail", savedPassword);

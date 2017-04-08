@@ -51,11 +51,6 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddaccountActivity"
-            android:label="@string/title_activity_addaccount"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
             android:parentActivityName=".CalenderActivity"

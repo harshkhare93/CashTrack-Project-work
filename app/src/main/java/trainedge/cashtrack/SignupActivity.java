@@ -26,7 +26,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private EditText edtSal;
     private EditText edtOccupation;
     private Button signup;
-    private boolean error = false;
+
+
     private UserDatabaseAdapter dbHelper;
 
 
@@ -56,7 +57,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        error = false;
+        boolean error = false;
         String name = edtName.getText().toString().trim();
         String email = edtEmail.getText().toString().trim();
         String pass = edtPass.getText().toString().trim();
@@ -104,32 +105,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void savetoDB(String name, String pass, String email, String phone, double salaryVal, String occupation) {
-        Cursor user = dbHelper.fetchUser(name, pass);
 
-
-        if (user != null) {
-            //Check for duplicate usernames
-            if (user.getCount() > 0) {
-                Snackbar.make(signup, "The username is already registered", Snackbar.LENGTH_SHORT).show();
-                return;
-            }
-
-
-            user.close();
-            ClearForm();
+        //Create the new username.
+        long id = dbHelper.createUser(name, pass, email, phone, salaryVal, occupation);
+        if (id > 0) {
+            saveLoggedInUId(id, email, pass);
+            BackToLogin();
         } else {
-
-
-            //Create the new username.
-            long id = dbHelper.createUser(name, pass, email, phone, salaryVal, occupation);
-            if (id > 0) {
-                saveLoggedInUId(id,email,pass);
-                BackToLogin();
-            } else {
-                Snackbar.make(signup, "Failed to create new username", Snackbar.LENGTH_SHORT).show();
-            }
-            ClearForm();
+            Snackbar.make(signup, "Failed to create new username", Snackbar.LENGTH_SHORT).show();
         }
+        ClearForm();
 
     }
 

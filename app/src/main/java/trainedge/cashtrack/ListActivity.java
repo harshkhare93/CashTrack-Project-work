@@ -119,7 +119,7 @@ public class ListActivity extends AppCompatActivity
             startActivity(faq);
 
         } else if (id == R.id.nav_add_account) {
-            Intent addaccount = new Intent(ListActivity.this, AddaccountActivity.class);
+            Intent addaccount = new Intent(ListActivity.this, AddExpenseActivity.class);
             startActivity(addaccount);
 
         } else if (id == R.id.nav_logout) {

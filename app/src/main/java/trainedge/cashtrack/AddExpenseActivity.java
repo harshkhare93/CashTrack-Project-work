@@ -21,6 +21,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     private EditText etExpAmount;
     private Button btnDatePick;
     private ExpenseDatabaseAdapter dbAdapter;
+    private boolean error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,20 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     private void addExpense() {
         // // TODO: 09-04-2017 validations
+        error = false;
+        String expensetitle=etExpenseTitle.getText().toString();
+        String expamount=etExpAmount.getText().toString();
+        if (expensetitle.isEmpty() || expensetitle.length()<6){
+            etExpenseTitle.setError("Required valid Expense Title");
+            error = true;
+        }
+        String amount= etExpAmount.getText().toString();
+        if (amount.isEmpty() ||expamount.length()<0 )
+        {
+            etExpAmount.setError("Required valid amount ");
+            error = true;
+        }
+
     }
 
     private void doAwesomeAnimation() {

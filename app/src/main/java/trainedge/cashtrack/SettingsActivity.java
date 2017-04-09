@@ -1,6 +1,10 @@
 package trainedge.cashtrack;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
@@ -25,13 +29,14 @@ public class SettingsActivity extends AppCompatActivity  {
     private Switch switchTts;
     private Switch switchDaily;
     private Switch switchVibRing;
-
+    private AlarmReceiver alarm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        alarm = new AlarmReceiver();
         tvTimeOption = (TextView) findViewById(R.id.tvTimeOption);
         switchTts = (Switch) findViewById(R.id.switchTts);
         switchDaily = (Switch) findViewById(R.id.switchDaily);
@@ -39,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity  {
         ViewGroup vClearNLogout = (ViewGroup) findViewById(R.id.vClearNLogout);
         pref = getSharedPreferences(Constants.SETTING_PREF, MODE_PRIVATE);
         updateUI();
+
         switchTts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -78,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity  {
         });
     }
 
+
     private void deleteExpenseDb() {
 
     }
@@ -88,6 +95,10 @@ public class SettingsActivity extends AppCompatActivity  {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 pref.edit().putInt(Constants.KEY_HOUR, hourOfDay).putInt(Constants.KEY_MINUTE, minute).apply();
                 tvTimeOption.setText("" + hourOfDay + ":" + minute);
+                startRepeatingTimer();
+                cancelRepeatingTimer();
+                onetimeTimer();
+
             }
         }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), false);
         dialog.show();
@@ -100,6 +111,37 @@ public class SettingsActivity extends AppCompatActivity  {
         int hour = pref.getInt(Constants.KEY_HOUR, 0);
         int minute = pref.getInt(Constants.KEY_MINUTE, 0);
         tvTimeOption.setText("" + hour + ":" + minute);
+            }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public void startRepeatingTimer() {
+        Context context = this.getApplicationContext();
+        if(alarm != null){
+            alarm.SetAlarm(context);
+        }else{
+            Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void cancelRepeatingTimer(){
+        Context context = this.getApplicationContext();
+        if(alarm != null){
+            alarm.CancelAlarm(context);
+        }else{
+            Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onetimeTimer(){
+        Context context = this.getApplicationContext();
+        if(alarm != null){
+            alarm.setOnetimeTimer(context);
+        }else{
+            Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

@@ -21,9 +21,10 @@
         android:hint="Enter your E-mail Id"
         android:inputType="textPersonName"
         android:padding="12dp"
-        android:textColor="?android:attr/textColorPrimaryInverse"
-        android:textColorHint="#eee"
-        android:textSize="16sp" />
+        android:textColor="?android:attr/textColorPrimary"
+        android:textColorHint="#777"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edtPassword"
@@ -42,9 +43,10 @@
         android:hint="Enter your Password"
         android:inputType="textPassword"
         android:padding="12dp"
-        android:textColor="?android:attr/textColorPrimaryInverse"
-        android:textColorHint="#eee"
-        android:textSize="16sp" />
+        android:textColor="?android:attr/textColorPrimary"
+        android:textColorHint="#777"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
@@ -53,15 +55,15 @@
         android:layout_alignBaseline="@+id/edtID"
         android:layout_alignBottom="@+id/edtID"
         android:layout_alignStart="@+id/textView3"
+        android:layout_toStartOf="@+id/edtPassword"
         android:drawableLeft="@drawable/ic_local_post_office_black_24dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_vertical"
         android:text="User Id "
         android:textAlignment="center"
-        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textColor="@color/app_text_color"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_toStartOf="@+id/edtPassword" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView3"
@@ -76,7 +78,7 @@
         android:gravity="center_vertical"
         android:text="Password"
         android:textAlignment="center"
-        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textColor="@color/app_text_color"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -95,6 +97,10 @@
         android:id="@+id/txtforgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtSingnup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="11dp"
         android:background="?attr/selectableItemBackground"
         android:ems="10"
@@ -104,12 +110,9 @@
         android:text="Forgot Password ?"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        android:textColor="@color/app_text_color"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_below="@+id/txtSingnup"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtSingnup"
@@ -127,6 +130,7 @@
         android:text="New User SignUp "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        android:textColor="@color/app_text_color"
         android:textSize="14sp"
         android:textStyle="bold" />
 

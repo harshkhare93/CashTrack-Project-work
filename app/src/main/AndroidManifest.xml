@@ -37,7 +37,7 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EditActivity"
+            android:name=".EditSalaryActivity"
             android:label="@string/title_activity_edit"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />

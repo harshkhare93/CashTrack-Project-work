@@ -1,9 +1,15 @@
 package trainedge.cashtrack;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.renderscript.Int2;
+import android.support.annotation.NonNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Hi ! HARSH on 08-Apr-17.
@@ -11,7 +17,7 @@ import android.renderscript.Int2;
 
 public class ExpenseDatabaseAdapter {
     //Table name
-    private static final String Expense_Table = "expenses";
+    public static final String TABLE_EXPENSE = "expenses";
     // Table id
     public static final String COL_ID = "_id";
     //Table names and columns
@@ -23,6 +29,7 @@ public class ExpenseDatabaseAdapter {
     public static final String COL_YEAR = "year";
     public static final String COL_HOUR = "hour";
     public static final String COL_MINUTE = "minute ";
+    private static final java.lang.String CREATED_ON = "created_on";
 
 
     private Context context;
@@ -48,43 +55,88 @@ public class ExpenseDatabaseAdapter {
     }
 
     //Add Expense Method
-    public void Addexpense() {
+    public long addExpense(String category, String title, double amount) {
 
+        ContentValues values = getContentValues(category, title, amount);
+        return database.insert(TABLE_EXPENSE, null, values);
+
+    }
+
+    @NonNull
+    private ContentValues getContentValues(String category, String title, double amount) {
+        ContentValues values = new ContentValues();
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int minute = Calendar.getInstance().get(Calendar.MINUTE);
+        values.put(COL_CATEGORY, category);
+        values.put(COL_TITLE, title);
+        values.put(COL_AMOUNT, amount);
+        values.put(COL_YEAR, year);
+        values.put(COL_MONTH, month);
+        values.put(COL_DAY, day);
+        values.put(COL_HOUR, hour);
+        values.put(COL_MINUTE, minute);
+        return values;
     }
 
     // Edit Expense
-    public void EditExpense() {
-
+    public int editExpense(long id, String category, String title, double amount) {
+        ContentValues values = getContentValues(category, title, amount);
+        String where = COL_ID + "=?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        return database.update(TABLE_EXPENSE, values, where, whereArgs);
     }
 
     //Calculate Total Expenditure
-    public void CalculateTotalExpenditure() {
-
+    public double calculateTotalExpenditure() {
+        Cursor cursor = database.query(TABLE_EXPENSE, null, null, null, null, null, null);
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                double total = 0;
+                while (cursor.moveToNext()) {
+                    double amt = cursor.getDouble(cursor.getColumnIndex(COL_AMOUNT));
+                    total += amt;
+                }
+                return total;
+            }
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return 0.00;
     }
+
     //Get All Expenses
-    public void GetAllExpense(){
-
+    public Cursor getAllExpense() {
+        return database.query(TABLE_EXPENSE, null, null, null, null, null, CREATED_ON + " DESC");
     }
+
     //Get Expense By Date
-    public void  GetExpenseByDate(){
+    public Cursor getExpenseByDate(int day, int month, int year) {
+        String where = COL_DAY + "=? and " + COL_MONTH + "=? and " + COL_YEAR + " = ?";
 
+        String[] whereArgs = new String[]{String.valueOf(day), String.valueOf(month), String.valueOf(year)};
+        return database.query(TABLE_EXPENSE, null, where, whereArgs, null, null, null, null);
     }
+
     //Get Expense By Category
-    public void GetExpenseByCategory(){
-
+    public Cursor getExpenseByCategory(String category) {
+        String where = COL_CATEGORY + " = ?";
+        String[] whereArgs = new String[]{category};
+        return database.query(TABLE_EXPENSE, null, where, whereArgs, null, null, null, null);
     }
-    //Get Expense In Range
-    public void GetExpenseInRange(){
 
-    }
+
     //Delete Expense
-    public void DeleteExpense(){
-
+    public int deleteExpense(long id) {
+        String where = COL_ID + "=?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        return database.delete(TABLE_EXPENSE, where, whereArgs);
     }
-    //Search Expenses By Id
-    public  void searchExpenseById(){
 
-    }
+
 
 
 }

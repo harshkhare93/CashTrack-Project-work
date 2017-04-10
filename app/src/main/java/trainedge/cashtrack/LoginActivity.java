@@ -15,12 +15,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText edtId;
     private EditText edtPassword;
+    private SharedPreferences expPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button btnlogin = (Button) findViewById(R.id.btnlogin);
+        expPref = getSharedPreferences("exp_pref", MODE_PRIVATE);
         TextView forgotpassword = (TextView) findViewById(R.id.txtforgotPassword);
         TextView signup = (TextView) findViewById(R.id.txtSingnup);
         edtId = (EditText) findViewById(R.id.edtID);
@@ -36,8 +38,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btnlogin:
                 if (validateUserLogin()) {
-                    Intent signup = new Intent(LoginActivity.this, ListActivity.class);
-                    startActivity(signup);
+                    if (expPref.getBoolean("hasSalary",false)){
+                        Intent gotoSalary = new Intent(LoginActivity.this, ListActivity.class);
+                        startActivity(gotoSalary);
+                    }else{
+                        Intent listIntent = new Intent(LoginActivity.this, EditSalaryActivity.class);
+                        startActivity(listIntent);
+                    }
                     finish();
                 }
                 break;

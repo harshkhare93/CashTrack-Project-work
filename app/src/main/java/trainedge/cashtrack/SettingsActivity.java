@@ -95,9 +95,7 @@ public class SettingsActivity extends AppCompatActivity  {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 pref.edit().putInt(Constants.KEY_HOUR, hourOfDay).putInt(Constants.KEY_MINUTE, minute).apply();
                 tvTimeOption.setText("" + hourOfDay + ":" + minute);
-                startRepeatingTimer();
-                cancelRepeatingTimer();
-                onetimeTimer();
+                startRepeatingTimer(hourOfDay,minute);
 
             }
         }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), false);
@@ -117,10 +115,10 @@ public class SettingsActivity extends AppCompatActivity  {
         super.onStart();
     }
 
-    public void startRepeatingTimer() {
+    public void startRepeatingTimer(int hourOfDay, int minute) {
         Context context = this.getApplicationContext();
         if(alarm != null){
-            alarm.SetAlarm(context);
+            alarm.SetAlarm(context,hourOfDay,minute);
         }else{
             Toast.makeText(context, "Alarm is null", Toast.LENGTH_SHORT).show();
         }

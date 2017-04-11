@@ -7,18 +7,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by Hi ! HARSH on 09-Apr-17.
  */
 
 public class AlarmReceiver extends BroadcastReceiver {
-    final public static String ONE_TIME = "onetime";
+    final public static String ONE_TIME = "trainedge.cashtrack.onetime";
+    final public static String REPEATING = "trainedge.cashtrack.reapeating";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         StringBuilder msgStr = new StringBuilder();
 
-        if(extras != null && extras.getBoolean(ONE_TIME, Boolean.FALSE)){
+        if (extras != null && extras.getBoolean(ONE_TIME, Boolean.FALSE)) {
             //Make sure this intent has been sent by the one-time timer button.
             msgStr.append("One time Timer : ");
         }
@@ -44,26 +49,30 @@ public class AlarmReceiver extends BroadcastReceiver {
         wl.release();
     }
 
-    public void SetAlarm(Context context)
-    {
-        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, SettingsActivity.class);
-        intent.putExtra(ONE_TIME, Boolean.FALSE);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        //After after 5 seconds
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 5 , pi);
+    public void SetAlarm(Context context, int hourOfDay, int minute) {
+        Calendar calSet = Calendar.getInstance();
+        for (int i = 1; i <= 7; i++) {
+            calSet.set(Calendar.DAY_OF_WEEK, i);
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, new Intent(context, ListActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
+            Log.i("SERVICE", "alarm set" + i);
+        }
     }
 
-    public void CancelAlarm(Context context)
-    {
+    public void CancelAlarm(Context context) {
         Intent intent = new Intent(context, SettingsActivity.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
 
-    public void setOnetimeTimer(Context context){
-        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+    public void setOnetimeTimer(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(context, SettingsActivity.class);
         intent.putExtra(ONE_TIME, Boolean.TRUE);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);

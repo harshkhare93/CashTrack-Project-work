@@ -8,11 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CalenderActivity extends AppCompatActivity {
+
+    public static final String DAY = "trainedge.cashtrack.day";
+    public static final String MONTH = "trainedge.cashtrack.month";
+    public static final String YEAR = "trainedge.cashtrack.year";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +29,25 @@ public class CalenderActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long selectedDate = cvExpenses.getDate();
-                long currentDate = System.currentTimeMillis();
-                if (selectedDate > currentDate) {
-                    Snackbar.make(btnContinue, "Select a previous date", BaseTransientBottomBar.LENGTH_LONG).show();
+
+                Date selectedDate = new Date(cvExpenses.getDate());
+                Date currentDate = new Date(System.currentTimeMillis());
+                if (selectedDate.before(currentDate)) {
+                    moveToNext(selectedDate);
                 } else {
-                    Intent historyIntent = new Intent(CalenderActivity.this, HistoryActivity.class);
-                    historyIntent.putExtra("trainedge.cashtrack.KEY_DATE", selectedDate);
+                    Toast.makeText(CalenderActivity.this, "Select a past date", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    private void moveToNext(Date selectedDate) {
+
+        Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putExtra(DAY,selectedDate.getDay());
+        intent.putExtra(MONTH,selectedDate.getMonth());
+        intent.putExtra(YEAR,selectedDate.getYear());
+        startActivity(intent);
     }
 }

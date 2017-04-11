@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+
+            android:name=".WelcomeActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,11 +48,6 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FAQActivity"
-            android:label="@string/title_activity_faq"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
             android:parentActivityName=".CalenderActivity"
@@ -61,13 +57,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="trainedge.cashtrack.CalenderActivity" />
         </activity>
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".AddExpenseActivity"
             android:label="@string/title_activity_add_expense"
@@ -78,6 +68,7 @@
                 android:value="trainedge.cashtrack.ListActivity" />
         </activity>
         <receiver android:name=".AlarmReceiver" android:process=":remote" />
+
     </application>
 
 </manifest>

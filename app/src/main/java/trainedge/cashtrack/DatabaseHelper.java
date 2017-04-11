@@ -14,7 +14,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
     // The database name and version
     private static final String DB_NAME = "expense_db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     // The database user table
     private static final String DB_USER_TABLE = "create table user (_id integer primary key autoincrement, "
             + "name text not null,"

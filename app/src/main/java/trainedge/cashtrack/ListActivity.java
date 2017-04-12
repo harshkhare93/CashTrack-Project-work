@@ -105,6 +105,7 @@ public class ListActivity extends AppCompatActivity
             expPref.edit().putFloat("remaining", (float) remainingBudget).apply();
         }
         dbAdapter.close();
+        expenseCursor = null;
         expenseCursor = new ExpenseDatabaseAdapter(this).open().getAllExpense();
 
         if (expenseCursor != null) {
@@ -124,7 +125,7 @@ public class ListActivity extends AppCompatActivity
 
     private double calculateMonthTotal(Cursor cursor) {
         double currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        double currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        double currentMonth = Calendar.getInstance().get(Calendar.MONTH)+1;
         if (cursor != null) {
             if (cursor.getCount() > 0) {
                 double total = 0;

@@ -14,10 +14,14 @@ public class ExpenseModel {
     int year;
     int month;
     int day;
-
+    long id;
     String category;
     String title;
     double amt;
+
+    public long getId() {
+        return id;
+    }
 
     public ExpenseModel(Cursor cursor) {
         amt = cursor.getDouble(cursor.getColumnIndex(COL_AMOUNT));
@@ -26,6 +30,7 @@ public class ExpenseModel {
         day = cursor.getInt(cursor.getColumnIndex(COL_DAY));
         month = cursor.getInt(cursor.getColumnIndex(COL_MONTH));
         year = cursor.getInt(cursor.getColumnIndex(COL_YEAR));
+        id=cursor.getLong(cursor.getColumnIndex(COL_ID));
 
 
     }
@@ -49,7 +54,7 @@ public class ExpenseModel {
     }
 
     public String getTitle() {
-        return title;
+        return category;
     }
 
     public double getAmt() {

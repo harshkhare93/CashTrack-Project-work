@@ -1,6 +1,9 @@
 package trainedge.cashtrack;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,13 +38,28 @@ class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ExpenseHolder holder, int position) {
+    public void onBindViewHolder(ExpenseHolder holder, final int position) {
         //databinding
-        ExpenseModel model = expenseList.get(position);
+        final ExpenseModel model = expenseList.get(position);
         holder.tvTitle.setText(model.getTitle());
         holder.tvAmt.setText(String.valueOf(model.getAmt()));
         holder.tvDate.setText(model.getDay() + "/" + model.getMonth() + "/" + model.getYear());
         holder.tvCategory.setText(model.getCategory());
+        holder.cvCard.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(final View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext()).setMessage("Do you want to delete " + model.getCategory() + " --> " + model.getAmt() + " ?").setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (new ExpenseDatabaseAdapter(v.getContext()).open().deleteExpense(model.getId()) > 0) {
+                            notifyDataSetChanged();
+                        }
+                    }
+                }).setNegativeButton("cancel", null);
+                builder.create().show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -54,9 +72,11 @@ class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseHolder> 
         TextView tvCategory;
         TextView tvTitle;
         TextView tvDate;
+        CardView cvCard;
 
         public ExpenseHolder(View itemView) {
             super(itemView);
+            cvCard = (CardView) itemView.findViewById(R.id.cvCard);
             tvAmt = (TextView) itemView.findViewById(R.id.tvAmt);
             tvCategory = (TextView) itemView.findViewById(R.id.tvCategory);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);

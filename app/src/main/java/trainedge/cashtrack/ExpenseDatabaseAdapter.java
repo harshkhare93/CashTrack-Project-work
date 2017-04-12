@@ -110,7 +110,7 @@ public class ExpenseDatabaseAdapter {
 
     //Get All Expenses
     public Cursor getAllExpense() {
-        return database.query(TABLE_EXPENSE, null, null, null, null, null, CREATED_ON + " DESC");
+        return database.query(TABLE_EXPENSE, new String[]{COL_ID,COL_AMOUNT,COL_YEAR,COL_DAY,COL_MONTH,COL_TITLE,COL_CATEGORY}, null, null, null, null, CREATED_ON + " DESC");
     }
 
     //Get Expense By Date
@@ -137,6 +137,18 @@ public class ExpenseDatabaseAdapter {
     }
 
 
-
-
+    public long addExpense(String category, String title, double amount, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int minute = Calendar.getInstance().get(Calendar.MINUTE);
+        values.put(COL_CATEGORY, category);
+        values.put(COL_TITLE, title);
+        values.put(COL_AMOUNT, amount);
+        values.put(COL_YEAR, year);
+        values.put(COL_MONTH, month);
+        values.put(COL_DAY, day);
+        values.put(COL_HOUR, hour);
+        values.put(COL_MINUTE, minute);
+        return database.insert(TABLE_EXPENSE, null, values);
+    }
 }

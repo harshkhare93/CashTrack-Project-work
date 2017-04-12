@@ -45,7 +45,6 @@ public class EditSalaryActivity extends AppCompatActivity {
         }
         expPref.edit().putFloat("budget", Float.parseFloat(budget)).putBoolean("hasSalary",true).apply();
         Toast.makeText(this, "saved your monthly salary", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, ListActivity.class));
         finish();
 
     }

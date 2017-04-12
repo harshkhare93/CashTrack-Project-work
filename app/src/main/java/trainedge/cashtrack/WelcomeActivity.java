@@ -121,6 +121,7 @@ public class WelcomeActivity extends AppCompatActivity {
         prefManager.setFirstTimeLaunch(false);
         Intent loginhome=new Intent(WelcomeActivity.this,LoginActivity.class);
         startActivity(loginhome);
+        finish();
     }
 
     //	viewpager change listener

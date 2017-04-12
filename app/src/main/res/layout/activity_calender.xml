@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context="trainedge.cashtrack.CalenderActivity">
 
-    <CalendarView
+
+    <io.blackbox_vision.materialcalendarview.view.CalendarView
         android:id="@+id/cvExpenses"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
@@ -20,7 +22,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+    </io.blackbox_vision.materialcalendarview.view.CalendarView>
 
     <TextView
         android:id="@+id/textView8"

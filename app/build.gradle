@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "trainedge.cashtrack"
 
-        minSdkVersion 20
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -39,4 +39,5 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:gridlayout-v7:25.3.0'
+    compile 'com.github.BlackBoxVision:material-calendar-view:v1.5.2'
 }

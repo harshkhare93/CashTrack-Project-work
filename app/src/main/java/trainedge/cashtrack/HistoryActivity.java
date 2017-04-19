@@ -45,6 +45,11 @@ public class HistoryActivity extends AppCompatActivity {
             year = intent.getIntExtra(YEAR, 0);
 
             toolbarLayout.setTitle(day + "/" + month + "/" + year);
+            if (intent!=null){
+                String str = intent.getExtras().getString("passdate");
+
+
+            }
         } catch (Exception e) {
             finish();
         }

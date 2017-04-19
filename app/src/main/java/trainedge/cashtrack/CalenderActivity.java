@@ -39,9 +39,11 @@ public class CalenderActivity extends AppCompatActivity {
 
     private void moveToNext(Date selectedDate) {
         Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putExtra("passdate","Date_var_here");
         intent.putExtra(DAY, selectedDate.getDay());
         intent.putExtra(MONTH, selectedDate.getMonth());
         intent.putExtra(YEAR, selectedDate.getYear());
-        startActivity(intent);
+        CalenderActivity.this.startActivity(intent);
+
     }
 }

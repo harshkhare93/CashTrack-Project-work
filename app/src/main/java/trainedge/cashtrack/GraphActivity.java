@@ -54,9 +54,11 @@ public class GraphActivity extends AppCompatActivity {
         });
         tvAmtRemaining = (TextView) findViewById(R.id.tvRemainingAmount);
         tvTotalSalary = (TextView) findViewById(R.id.tvTotalSalary);
+        tvTotalSalary.setVisibility(View.GONE);
         barChart = (BarChart) findViewById(R.id.chart);
 
         entries = new ArrayList<BarEntry>();
+        cursorToList();
     }
 
     private void cursorToList() {
@@ -87,7 +89,7 @@ public class GraphActivity extends AppCompatActivity {
                     entries.add(new BarEntry((float) amt, month));
                 }
                 BarDataSet dataSet = new BarDataSet(entries, "Monthly expense");
-                barChart.setData(new BarData(new String[]{"j", "f", "m", "a", "m", "j", "j", "a", "s", "o", "n", "d"}, dataSet));
+                barChart.setData(new BarData(new String[]{"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"}, dataSet));
                 barChart.invalidate();
             }
         } else {

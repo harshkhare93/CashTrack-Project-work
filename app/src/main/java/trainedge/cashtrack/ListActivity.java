@@ -196,11 +196,11 @@ public class ListActivity extends AppCompatActivity
             // Handle the calender action
             Intent cal = new Intent(ListActivity.this, CalenderActivity.class);
             startActivity(cal);
-        } else if (id == R.id.nav_monthly) {
-            Intent monthly = new Intent(ListActivity.this, MonthlyActivity.class);
-            startActivity(monthly);
-
-        } else if (id == R.id.nav_graph) {
+//        } else if (id == R.id.nav_monthly) {
+//            Intent monthly = new Intent(ListActivity.this, MonthlyActivity.class);
+//            startActivity(monthly);
+//
+//        } else if (id == R.id.nav_graph) {
             Intent graph = new Intent(ListActivity.this, GraphActivity.class);
             startActivity(graph);
 

@@ -1,6 +1,7 @@
 package trainedge.cashtrack;
 
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,41 +16,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText edtId;
     private EditText edtPassword;
-    private SharedPreferences expPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button btnlogin = (Button) findViewById(R.id.btnlogin);
-        expPref = getSharedPreferences("exp_pref", MODE_PRIVATE);
         TextView forgotpassword = (TextView) findViewById(R.id.txtforgotPassword);
         TextView signup = (TextView) findViewById(R.id.txtSingnup);
         edtId = (EditText) findViewById(R.id.edtID);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         signup.setOnClickListener(this);
         btnlogin.setOnClickListener(this);
+
         forgotpassword.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        SharedPreferences settings = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);
         switch (v.getId()) {
             case R.id.btnlogin:
+
                 if (validateUserLogin()) {
-                    if (expPref.getBoolean("hasSalary",false)){
-                        Intent gotoSalary = new Intent(LoginActivity.this, ListActivity.class);
-                        startActivity(gotoSalary);
-                    }else{
-                        Intent listIntent = new Intent(LoginActivity.this, EditSalaryActivity.class);
-                        startActivity(listIntent);
-                    }
+                    Intent signup = new Intent(LoginActivity.this, ListActivity.class);
+                    startActivity(signup);
                     finish();
                 }
                 break;
             case R.id.txtSingnup:
-                if (settings.getString("email","").length() > 3) {
+
+                if (getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE).getString("email", "").length() <= 3) {
                     Snackbar.make(edtId, "You are already registered", Snackbar.LENGTH_INDEFINITE).show();
                 } else {
                     Intent login = new Intent(LoginActivity.this, SignupActivity.class);
@@ -57,9 +53,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.txtforgotPassword:
+                SharedPreferences settings = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);
 
-
-                if (settings.getString("email","").length() > 3) {
+                if (settings.contains("email")) {
                     String savedEmail = settings.getString("email", "");
                     String savedPassword = settings.getString("password", "");
                     composeEmail(new String[]{savedEmail}, "Password recovery mail", savedPassword);

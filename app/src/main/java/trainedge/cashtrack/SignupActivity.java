@@ -26,8 +26,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private EditText edtSal;
     private EditText edtOccupation;
     private Button signup;
-
-
     private UserDatabaseAdapter dbHelper;
 
 
@@ -105,18 +103,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void savetoDB(String name, String pass, String email, String phone, double salaryVal, String occupation) {
-
-        //Create the new username.
+        //Create the new user.
         long id = dbHelper.createUser(name, pass, email, phone, salaryVal, occupation);
         if (id > 0) {
-            saveLoggedInUId(id, email, pass);
+            saveLoggedInUId(id,email,pass);
             BackToLogin();
         } else {
             Snackbar.make(signup, "Failed to create new username", Snackbar.LENGTH_SHORT).show();
+            ClearForm();
         }
-        ClearForm();
 
     }
+
+
 
 
     private void saveLoggedInUId(long id, String email, String password) {
@@ -127,6 +126,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         editor.putString("password", password);
         editor.apply();
     }
+
 
     /**
      * Clears the registration fields.

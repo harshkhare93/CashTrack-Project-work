@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="trainedge.cashtrack">
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-
             android:name=".WelcomeActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
@@ -62,7 +64,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="trainedge.cashtrack.CalenderActivity" />
         </activity>
-
         <activity
             android:name=".AddExpenseActivity"
             android:label="@string/title_activity_add_expense"
@@ -72,8 +73,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="trainedge.cashtrack.ListActivity" />
         </activity>
-        <receiver android:name=".AlarmReceiver" android:process=":remote" />
 
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="trainedge.cashtrack.MY_ALARM" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

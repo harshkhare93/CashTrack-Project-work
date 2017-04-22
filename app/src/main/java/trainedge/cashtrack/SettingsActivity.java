@@ -79,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity  {
             @Override
             public boolean onLongClick(View v) {
                 deleteExpenseDb();
+                updateUI();
                 return true;
             }
         });
@@ -86,7 +87,10 @@ public class SettingsActivity extends AppCompatActivity  {
 
 
     private void deleteExpenseDb() {
+        ExpenseDatabaseAdapter expenseAdapter = new ExpenseDatabaseAdapter(this);
 
+        expenseAdapter.deleteAll();
+        pref.edit().clear().apply();
     }
 
     private void showClockDialog() {

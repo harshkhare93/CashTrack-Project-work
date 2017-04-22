@@ -151,4 +151,8 @@ public class ExpenseDatabaseAdapter {
         values.put(COL_MINUTE, minute);
         return database.insert(TABLE_EXPENSE, null, values);
     }
+
+    public void deleteAll() {
+        database.execSQL("DELETE from "+TABLE_EXPENSE);
+    }
 }

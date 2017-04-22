@@ -125,7 +125,7 @@ public class ListActivity extends AppCompatActivity
 
     private double calculateMonthTotal(Cursor cursor) {
         double currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        double currentMonth = Calendar.getInstance().get(Calendar.MONTH)+1;
+        double currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         if (cursor != null) {
             if (cursor.getCount() > 0) {
                 double total = 0;
@@ -180,6 +180,9 @@ public class ListActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settings = new Intent(ListActivity.this, SettingsActivity.class);
+            startActivity(settings);
+
             return true;
         }
 
@@ -196,11 +199,7 @@ public class ListActivity extends AppCompatActivity
             // Handle the calender action
             Intent cal = new Intent(ListActivity.this, CalenderActivity.class);
             startActivity(cal);
-//        } else if (id == R.id.nav_monthly) {
-//            Intent monthly = new Intent(ListActivity.this, MonthlyActivity.class);
-//            startActivity(monthly);
-//
-//        } else if (id == R.id.nav_graph) {
+        } else if (id == R.id.nav_graph) {
             Intent graph = new Intent(ListActivity.this, GraphActivity.class);
             startActivity(graph);
 
@@ -211,7 +210,6 @@ public class ListActivity extends AppCompatActivity
         } else if (id == R.id.nav_setting) {
             Intent settings = new Intent(ListActivity.this, SettingsActivity.class);
             startActivity(settings);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

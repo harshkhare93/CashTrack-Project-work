@@ -27,8 +27,6 @@
     <string name="title_activity_add_expense">Add New Expense</string>
 
 
-
-
     <string name="title_activity_welcome">Cash Track</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
@@ -49,9 +47,16 @@
     <string name="play_again_desc">To see the intro, goto Settings </string>
     <string name="play_again">Play Again</string>
 
+    <string name="add_expense_notification_placeholder_text_template">Cash track : %1$s , open the app to login and continue
+    </string>
+
+    <string name="action_share">Share</string>
+    <string name="action_reply">Reply</string>
+
+    <string name="new_message_notification_title_template">CashTrack: %1$s</string>
 
 
-
+    <string name="action_open">open</string>
 
 
 </resources>

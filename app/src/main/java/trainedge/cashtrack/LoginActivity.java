@@ -45,12 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.txtSingnup:
 
-                if (getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE).getString("email", "").length() <= 3) {
-                    Snackbar.make(edtId, "You are already registered", Snackbar.LENGTH_INDEFINITE).show();
-                } else {
                     Intent login = new Intent(LoginActivity.this, SignupActivity.class);
                     startActivity(login);
-                }
                 break;
             case R.id.txtforgotPassword:
                 SharedPreferences settings = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);

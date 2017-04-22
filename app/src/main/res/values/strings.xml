@@ -47,7 +47,7 @@
     <string name="play_again_desc">To see the intro, goto Settings </string>
     <string name="play_again">Play Again</string>
 
-    <string name="add_expense_notification_placeholder_text_template">Cash track : %1$s , open the app to login and continue
+    <string name="new_message_notification_placeholder_text_template">Cash track : %1$s , open the app to login and continue
     </string>
 
     <string name="action_share">Share</string>

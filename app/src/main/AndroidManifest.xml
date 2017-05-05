@@ -30,11 +30,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CalenderActivity" />
         <activity
-            android:name=".MonthlyActivity"
-            android:label="@string/title_activity_monthly"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".GraphActivity"
             android:label="@string/title_activity_graph"
             android:screenOrientation="sensorPortrait"

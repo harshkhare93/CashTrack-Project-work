@@ -155,6 +155,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         btnDatePick.setText(Calendar.getInstance().get(Calendar.YEAR) + "/" + monthdisp + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         spinCategory.setSelection(0);
         etExpenseTitle.setHint("");
+        etExpAmount.setText("");
         etExpenseTitle.setVisibility(GONE);
     }
 

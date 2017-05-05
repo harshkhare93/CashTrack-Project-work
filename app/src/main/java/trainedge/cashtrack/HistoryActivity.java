@@ -74,7 +74,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void cursorToList() {
 
-        ExpenseDatabaseAdapter dbAdapter = new ExpenseDatabaseAdapter(this).open();
+
         expenseCursor = new ExpenseDatabaseAdapter(this).open().getExpenseByDate(day, month, year);
 
         if (expenseCursor != null) {

@@ -21,7 +21,6 @@ public class UserDatabaseAdapter {
     public static final String COL_PASSWORD = "password";
     public static final String COL_OCCUPATION = "occupation";
     public static final String COL_EMAIL = "email";
-    public static final String COL_SALARY = "salary";
     public static final String COL_PHONE = "phone";
 
     private Context context;
@@ -63,8 +62,8 @@ public class UserDatabaseAdapter {
      * @param password The password.
      * @return
      */
-    public long createUser(String username, String password, String email, String contact, double salary, String occupation) {
-        ContentValues initialValues = createUserTableContentValues(username, password, email, contact, salary, occupation);
+    public long createUser(String username, String password, String email, String contact, String occupation) {
+        ContentValues initialValues = createUserTableContentValues(username, password, email, contact, occupation);
         return database.insert(LOGIN_TABLE, null, initialValues);
     }
 
@@ -79,7 +78,7 @@ public class UserDatabaseAdapter {
     }
 
     public boolean updateUserTable(long rowId, String username, String password, String email, String contact, double salary, String occupation) {
-        ContentValues updateValues = createUserTableContentValues(username, password, email, contact, salary, occupation);
+        ContentValues updateValues = createUserTableContentValues(username, password, email, contact, occupation);
         return database.update(LOGIN_TABLE, updateValues, COL_ID + "=" + rowId, null) > 0;
     }
 
@@ -134,17 +133,16 @@ public class UserDatabaseAdapter {
      * @param password   The password.
      * @param email
      * @param contact
-     * @param salary
      * @param occupation
      * @return The entered values.
      */
-    private ContentValues createUserTableContentValues(String username, String password, String email, String contact, double salary, String occupation) {
+    private ContentValues createUserTableContentValues(String username, String password, String email, String contact, String occupation) {
         ContentValues values = new ContentValues();
         values.put(COL_USERNAME, username);
         values.put(COL_PASSWORD, password);
         values.put(COL_EMAIL, email);
         values.put(COL_PHONE, contact);
-        values.put(COL_SALARY, salary);
+
         values.put(COL_OCCUPATION, occupation);
         return values;
     }

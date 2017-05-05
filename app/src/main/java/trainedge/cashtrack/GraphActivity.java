@@ -66,13 +66,8 @@ public class GraphActivity extends AppCompatActivity {
         ExpenseDatabaseAdapter dbAdapter = new ExpenseDatabaseAdapter(this).open();
 
         Cursor cursor = dbAdapter.getAllExpense();
-        double totalExpenseThisMonth = calculateMonthTotal(cursor);
+
         float budget = expPref.getFloat("budget", 0.0f);
-        if (budget > 0) {
-            double remainingBudget = budget - totalExpenseThisMonth;
-            tvAmtRemaining.setText(budget + " - " + totalExpenseThisMonth + " = " + remainingBudget);
-            expPref.edit().putFloat("remaining", (float) remainingBudget).apply();
-        }
         dbAdapter.close();
         cursor = new ExpenseDatabaseAdapter(this).open().getAllExpense();
 
@@ -98,27 +93,6 @@ public class GraphActivity extends AppCompatActivity {
         }
     }
 
-    private double calculateMonthTotal(Cursor cursor) {
-        double currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        double currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-        if (cursor != null) {
-            if (cursor.getCount() > 0) {
-                double total = 0;
-                while (cursor.moveToNext()) {
-                    double year = cursor.getInt(cursor.getColumnIndex(COL_YEAR));
-                    double month = cursor.getInt(cursor.getColumnIndex(COL_MONTH));
-                    if (year == currentYear && month == currentMonth) {
-                        double amt = cursor.getDouble(cursor.getColumnIndex(COL_AMOUNT));
-                        total += amt;
-                    }
-                }
-                return total;
-            }
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
-        return 0;
-    }
+
 
 }

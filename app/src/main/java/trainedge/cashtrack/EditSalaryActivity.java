@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static trainedge.cashtrack.Constants.HAS_SALARY;
+import static trainedge.cashtrack.Constants.MY_PREFS;
+
 public class EditSalaryActivity extends AppCompatActivity {
 
     private EditText etBudget;
@@ -23,10 +26,10 @@ public class EditSalaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        expPref = getSharedPreferences("exp_pref", MODE_PRIVATE);
+        expPref = getSharedPreferences(MY_PREFS, MODE_PRIVATE);
         etBudget = (EditText) findViewById(R.id.etBudget);
         Button btnSave = (Button) findViewById(R.id.btnSave);
-        float budget = expPref.getFloat("budget", 0.0f);
+        float budget = expPref.getFloat(Constants.BUDGET, 0.0f);
         if (budget > 0) {
             etBudget.setText(String.valueOf(budget));
         }
@@ -43,10 +46,11 @@ public class EditSalaryActivity extends AppCompatActivity {
             etBudget.setError("Fill your Salary here");
             return;
         }
-        expPref.edit().putFloat("budget", Float.parseFloat(budget)).putBoolean("hasSalary",true).apply();
+        expPref.edit().putFloat(Constants.BUDGET, Float.parseFloat(budget)).putBoolean(HAS_SALARY,true).apply();
         Toast.makeText(this, "saved your monthly salary", Toast.LENGTH_SHORT).show();
+        Intent gotoSalary = new Intent(EditSalaryActivity.this, ListActivity.class);
+        startActivity(gotoSalary);
         finish();
-
     }
 
 }

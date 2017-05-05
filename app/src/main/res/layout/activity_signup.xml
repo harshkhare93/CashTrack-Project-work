@@ -3,27 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="trainedge.cashtrack.SignupActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context="trainedge.cashtrack.SignupActivity">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_margin="16dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimaryDark"
             android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
             android:text="Register to Continue"
             android:textAlignment="center"
             android:textAllCaps="true"
+            android:textColor="#fff"
             android:textSize="30sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="176dp"
@@ -40,13 +41,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/day_disabled_background_color"
             android:ems="10"
             android:fontFamily="sans-serif-condensed"
             android:hint="Enter Your Name"
             android:inputType="textPersonName"
             android:maxLength="30"
             android:padding="12dp"
+            android:textColor="#333"
+            android:textColorHint="#777"
             android:textStyle="bold" />
 
         <EditText
@@ -60,13 +63,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/day_disabled_background_color"
             android:ems="10"
             android:fontFamily="sans-serif-condensed"
             android:hint="Enter Your Occupation"
             android:inputType="textPersonName"
             android:maxLength="15"
             android:padding="12dp"
+            android:textColor="#333"
+            android:textColorHint="#777"
             android:textStyle="bold" />
 
         <EditText
@@ -80,13 +85,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/day_disabled_background_color"
             android:ems="10"
             android:fontFamily="sans-serif-condensed"
             android:hint="Enter your E-mail Id"
             android:inputType="textEmailAddress"
             android:maxLength="30"
             android:padding="12dp"
+            android:textColor="#333"
+            android:textColorHint="#777"
             android:textStyle="bold" />
 
         <EditText
@@ -100,13 +107,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/day_disabled_background_color"
             android:ems="10"
             android:fontFamily="sans-serif-condensed"
             android:hint="Enter your Contact No."
             android:inputType="phone"
             android:maxLength="12"
             android:padding="12dp"
+            android:textColor="#333"
+            android:textColorHint="#777"
             android:textStyle="bold" />
 
         <EditText
@@ -120,13 +129,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/day_disabled_background_color"
             android:ems="10"
             android:fontFamily="sans-serif-condensed"
             android:hint="Enter your Password"
             android:inputType="textPassword"
             android:maxLength="15"
             android:padding="12dp"
+            android:textColor="#333"
+            android:textColorHint="#777"
             android:textStyle="bold" />
 
         <EditText
@@ -140,31 +151,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/day_disabled_background_color"
             android:ems="10"
             android:fontFamily="sans-serif-condensed"
             android:hint="Confirm your Password"
             android:inputType="textPassword"
             android:maxLength="15"
             android:padding="12dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edtsal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/edtpass"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:ems="10"
-            android:fontFamily="sans-serif-condensed"
-            android:hint="Enter your Salary"
-            android:inputType="numberDecimal"
-            android:maxLength="8"
-            android:padding="12dp"
+            android:textColor="#333"
+            android:textColorHint="#777"
             android:textStyle="bold" />
 
         <Button
@@ -176,7 +171,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-condensed"
             android:text="SignUp"
             android:textSize="30sp"

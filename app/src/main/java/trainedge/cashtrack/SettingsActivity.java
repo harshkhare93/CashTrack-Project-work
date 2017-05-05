@@ -88,9 +88,10 @@ public class SettingsActivity extends AppCompatActivity  {
 
     private void deleteExpenseDb() {
         ExpenseDatabaseAdapter expenseAdapter = new ExpenseDatabaseAdapter(this);
-
+        expenseAdapter.open();
         expenseAdapter.deleteAll();
         pref.edit().clear().apply();
+        Toast.makeText(this, "data clear", Toast.LENGTH_SHORT).show();
     }
 
     private void showClockDialog() {

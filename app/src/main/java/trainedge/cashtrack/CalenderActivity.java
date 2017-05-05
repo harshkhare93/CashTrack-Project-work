@@ -21,13 +21,13 @@ public class CalenderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
-        final Button btnContinue = (Button) findViewById(R.id.btnContinue);
+
         final CalendarView cvExpenses = (CalendarView) findViewById(R.id.cvExpenses);
         cvExpenses.setOnDateClickListener(new CalendarView.OnDateClickListener() {
             @Override
             public void onDateClick(@NonNull Date date) {
                 Date currentDate = new Date(System.currentTimeMillis());
-                if (date.before(currentDate)) {
+                if (date.compareTo(currentDate)<=0) {
                     moveToNext(date);
                 } else {
                     Toast.makeText(CalenderActivity.this, "Select a past date", Toast.LENGTH_SHORT).show();
@@ -43,7 +43,6 @@ public class CalenderActivity extends AppCompatActivity {
         intent.putExtra(DAY, selectedDate.getDate());
         intent.putExtra(MONTH, selectedDate.getMonth()+1);
         intent.putExtra(YEAR, selectedDate.getYear()+1900);
-        CalenderActivity.this.startActivity(intent);
-
+        startActivity(intent);
     }
 }

@@ -22,9 +22,7 @@ import java.util.Locale;
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * Created by Hi ! HARSH on 09-Apr-17.
- */
+
 
 public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnInitListener {
     final public static String ONE_TIME = "trainedge.cashtrack.onetime";

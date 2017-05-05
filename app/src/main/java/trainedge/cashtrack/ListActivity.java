@@ -1,5 +1,6 @@
 package trainedge.cashtrack;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import java.util.Calendar;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import trainedge.cashtrack.models.ExpenseModel;
 
+import static trainedge.cashtrack.Constants.STATE;
 import static trainedge.cashtrack.ExpenseDatabaseAdapter.COL_AMOUNT;
 import static trainedge.cashtrack.ExpenseDatabaseAdapter.COL_CATEGORY;
 import static trainedge.cashtrack.ExpenseDatabaseAdapter.COL_MONTH;
@@ -38,6 +41,7 @@ public class ListActivity extends AppCompatActivity
     private TextView tvAmtRemaining;
     private ExpenseAdapter adapter;
     private RecyclerView rvExpenses;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +73,11 @@ public class ListActivity extends AppCompatActivity
         });
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        expPref = getSharedPreferences("exp_pref", MODE_PRIVATE);
+        expPref = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);
         tvAmtRemaining = (TextView) findViewById(R.id.tvRemainingAmount);
         rvExpenses = (RecyclerView) findViewById(R.id.rvExpenses);
         //setupExpensesRecyclerView();
+        settings = getSharedPreferences(Constants.MY_PREFS, MODE_PRIVATE);
     }
 
     private void setupExpensesRecyclerView() {
@@ -98,12 +103,31 @@ public class ListActivity extends AppCompatActivity
 
         Cursor expenseCursor = dbAdapter.getAllExpense();
         double totalExpenseThisMonth = calculateMonthTotal(expenseCursor);
-        float budget = expPref.getFloat("budget", 0.0f);
+        float budget = expPref.getFloat(Constants.BUDGET, 0.0f);
         if (budget > 0) {
             double remainingBudget = budget - totalExpenseThisMonth;
             tvAmtRemaining.setText(budget + " - " + totalExpenseThisMonth + " = " + remainingBudget);
-            expPref.edit().putFloat("remaining", (float) remainingBudget).apply();
+            expPref.edit().putFloat(Constants.REMAINING, (float) remainingBudget).apply();
+            if (remainingBudget < 1000) {
+                AlertDialog dialog = new AlertDialog.Builder(ListActivity.this).setTitle("Warning").setPositiveButton("Stop spending", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        NewMessageNotification.notify(ListActivity.this, "You are expending more than required", 0);
+                        dialog.dismiss();
+                    }
+                }).create();
+                dialog.setCancelable(false);
+                dialog.show();
+
+                checkMonthEnd(budget, totalExpenseThisMonth, remainingBudget);
+            }
         }
+
         dbAdapter.close();
         expenseCursor = null;
         expenseCursor = new ExpenseDatabaseAdapter(this).open().getAllExpense();
@@ -120,6 +144,35 @@ public class ListActivity extends AppCompatActivity
         } else {
             TextView tLabel = new TextView(this);
 
+        }
+    }
+
+    private void checkMonthEnd(float budget, double totalExpenseThisMonth, double remainingBudget) {
+        int today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+        if (today == lastDayOfMonth) {
+            double percentage = remainingBudget / budget * 100;
+            String msg = "";
+            if (percentage > 25) {
+                msg = "Well done! your have saved more than 25% in your budget. Keep Going";
+            } else if (percentage > 5) {
+                msg = "month completed! your have saved more than 5% in your budget. Raise your savings";
+            } else {
+                msg = "Looks like you are not planning enough";
+            }
+            AlertDialog dialog = new AlertDialog.Builder(ListActivity.this)
+                    .setTitle("Summary")
+                    .setMessage("Salary :" + budget + "\n" + "Total Expense :"
+                            + totalExpenseThisMonth + "\n" + "remaining :"
+                            + remainingBudget + "\n" + msg)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.setCancelable(false);
+            dialog.show();
         }
     }
 
@@ -209,6 +262,10 @@ public class ListActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_setting) {
             Intent settings = new Intent(ListActivity.this, SettingsActivity.class);
+            startActivity(settings);
+        }else if (id == R.id.nav_logout) {
+            settings.edit().putBoolean(STATE, false).apply();
+            Intent settings = new Intent(ListActivity.this, LoginActivity.class);
             startActivity(settings);
         }
 

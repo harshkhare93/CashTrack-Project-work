@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#333"
     tools:context="trainedge.cashtrack.TTSactivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvReminder"
+        android:layout_width="368dp"
+        android:layout_height="551dp"
+        android:padding="16dp"
+        android:text="Reminder"
+        android:textColor="#fff"
+ />
+
+</RelativeLayout>

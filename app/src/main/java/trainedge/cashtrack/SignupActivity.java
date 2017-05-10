@@ -71,23 +71,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             error = true;
         }
         if (email.isEmpty() || email.length() < 3) {
-            edtEmail.setError("Valid Username is required");
+            edtEmail.setError("Valid email is required");
             error = true;
         }
-        if (pass.isEmpty() || pass.length() < 3) {
-            edtPass.setError("Valid Username is required");
+        if (pass.isEmpty() || (pass.length() < 6 && pass.length() > 25)) {
+            edtPass.setError("Valid Password is required");
             error = true;
         }
         if (confirmPass.isEmpty() || confirmPass.length() < 3) {
-            edtConPass.setError("Valid Username is required");
+            edtConPass.setError("Valid password is required");
             error = true;
         }
         if (phone.isEmpty() || phone.length() < 3) {
-            edtPhoneno.setError("Valid Username is required");
+            edtPhoneno.setError("Valid phone number is required");
             error = true;
         }
         if (occupation.isEmpty() || occupation.length() < 3) {
-            edtOccupation.setError("Valid Username is required");
+            edtOccupation.setError("Valid occupation is required");
             error = true;
         }
 
@@ -97,16 +97,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
         //final
         if (!error) {
-            savetoDB(name, pass, email, phone,  occupation);
+            savetoDB(name, pass, email, phone, occupation);
         }
     }
 
     private void savetoDB(String name, String pass, String email, String phone, String occupation) {
 
         //Create the new username.
-        long id = dbHelper.createUser(name, pass, email, phone,  occupation);
+        long id = dbHelper.createUser(name, pass, email, phone, occupation);
         if (id > 0) {
-            saveLoggedInUId(id, email, pass,phone);
+            saveLoggedInUId(id, email, pass, phone);
             Toast.makeText(this, "you are registered ! login to continue", Toast.LENGTH_SHORT).show();
             BackToLogin();
         } else {

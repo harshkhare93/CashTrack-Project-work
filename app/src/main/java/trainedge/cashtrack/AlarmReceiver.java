@@ -75,7 +75,6 @@ public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnI
             calSet.set(Calendar.SECOND, 0);
             calSet.set(Calendar.MILLISECOND, 0);
             Intent intent = new Intent("trainedge.cashtrack.MY_ALARM");
-
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
@@ -124,7 +123,6 @@ public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnI
         intent.putExtra("trainedge.cashtrack.EXTRA_MSG", msg);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
         Log.i("SERVICE", "alarm set");
         Toast.makeText(context, "Event schedule set", Toast.LENGTH_SHORT).show();

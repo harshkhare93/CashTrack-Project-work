@@ -55,9 +55,7 @@ public class GraphActivity extends AppCompatActivity {
     private void cursorToList() {
 
         ExpenseDatabaseAdapter dbAdapter = new ExpenseDatabaseAdapter(this).open();
-
         Cursor cursor = dbAdapter.getAllExpense();
-
         float budget = expPref.getFloat("budget", 0.0f);
         dbAdapter.close();
         cursor = new ExpenseDatabaseAdapter(this).open().getAllExpense();

@@ -267,6 +267,7 @@ public class ListActivity extends AppCompatActivity
             settings.edit().putBoolean(STATE, false).apply();
             Intent settings = new Intent(ListActivity.this, LoginActivity.class);
             startActivity(settings);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

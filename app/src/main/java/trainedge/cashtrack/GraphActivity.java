@@ -44,14 +44,6 @@ public class GraphActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         expPref = getSharedPreferences("exp_pref", MODE_PRIVATE);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         tvAmtRemaining = (TextView) findViewById(R.id.tvRemainingAmount);
 
         barChart = (BarChart) findViewById(R.id.chart);
@@ -80,7 +72,7 @@ public class GraphActivity extends AppCompatActivity {
                     int day = cursor.getInt(cursor.getColumnIndex(COL_DAY));
                     int month = cursor.getInt(cursor.getColumnIndex(COL_MONTH));
                     int year = cursor.getInt(cursor.getColumnIndex(COL_YEAR));
-                    entries.add(new BarEntry((float) amt, month));
+                    entries.add(new BarEntry((float) amt, month-1));
                 }
                 BarDataSet dataSet = new BarDataSet(entries, "Monthly expense");
                 barChart.setData(new BarData(new String[]{"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"}, dataSet));

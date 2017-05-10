@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -71,11 +71,23 @@
 
         <receiver
             android:name=".AlarmReceiver"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
                 <action android:name="trainedge.cashtrack.MY_ALARM" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".TTSactivity"></activity>
+
+        <activity
+            android:name=".ForgotActivity"
+            android:label="@string/title_activity_forgot"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="trainedge.cashtrack.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

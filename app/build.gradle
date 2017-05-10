@@ -36,4 +36,4 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.android.support:gridlayout-v7:25.3.0'
     compile 'com.github.BlackBoxVision:material-calendar-view:v1.5.2'
- }
+}

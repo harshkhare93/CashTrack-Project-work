@@ -74,13 +74,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.txtforgotPassword:
-                if (settings.contains(EMAIL)) {
-                    String savedEmail = settings.getString(EMAIL, "");
-                    String savedPassword = settings.getString(Constants.PASSWORD, "");
-                    composeEmail(new String[]{savedEmail}, "Password recovery mail", savedPassword);
-                } else {
-                    Snackbar.make(edtId, "You have not registered yet", Snackbar.LENGTH_INDEFINITE).show();
-                }
+                Intent gotoForgot = new Intent(LoginActivity.this, ForgotActivity.class);
+                startActivity(gotoForgot);
+
                 break;
         }
     }

@@ -73,8 +73,8 @@ public class CalenderActivity extends AppCompatActivity {
 
     private void showAddEventDialog(final Date date) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("PASSWORD");
-        alertDialog.setMessage("Enter Password");
+        alertDialog.setTitle("add event");
+        alertDialog.setMessage("enter an event or task");
 
         final EditText input = new EditText(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(

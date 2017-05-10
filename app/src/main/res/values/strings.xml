@@ -57,6 +57,7 @@
 
 
     <string name="action_open">open</string>
+    <string name="title_activity_forgot">Forgot password</string>
 
 
 </resources>

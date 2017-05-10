@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -72,11 +73,11 @@ class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseHolder> 
         TextView tvCategory;
         TextView tvTitle;
         TextView tvDate;
-        CardView cvCard;
+        LinearLayout cvCard;
 
         public ExpenseHolder(View itemView) {
             super(itemView);
-            cvCard = (CardView) itemView.findViewById(R.id.cvCard);
+            cvCard = (LinearLayout) itemView.findViewById(R.id.cvCard);
             tvAmt = (TextView) itemView.findViewById(R.id.tvAmt);
             tvCategory = (TextView) itemView.findViewById(R.id.tvCategory);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);

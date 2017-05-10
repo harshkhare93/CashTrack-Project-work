@@ -65,13 +65,18 @@ public class AddExpenseActivity extends AppCompatActivity {
         etExpenseTitle.setVisibility(GONE);
         btnDatePick = (Button) findViewById(R.id.btnDatePick);
         int monthdisp = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        btnDatePick.setText(Calendar.getInstance().get(Calendar.YEAR) + "/"
+        final String dateCurrent = Calendar.getInstance().get(Calendar.YEAR) + "/"
                 + monthdisp + "/"
-                + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        btnDatePick.setText(dateCurrent);
         btnDatePick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                try {
+                    showDatePickerDialog();
+                } catch (Exception e) {
+                    btnDatePick.setText(dateCurrent);
+                }
             }
         });
         spinCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -93,7 +98,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
     }
 
-    private void showDatePickerDialog() {
+    private void showDatePickerDialog() throws IndexOutOfBoundsException {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -109,9 +114,9 @@ public class AddExpenseActivity extends AppCompatActivity {
 
                 customDate = true;
             }
-        }, year,
-                Calendar.getInstance().get(month),
-                Calendar.getInstance().get(dayOfMonth));
+        }, Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
@@ -123,9 +128,10 @@ public class AddExpenseActivity extends AppCompatActivity {
         String expamount = etExpAmount.getText().toString();
         String category = getResources().getStringArray(R.array.categories)[spinCategory.getSelectedItemPosition()];
         if (category.equals("Others")) {
-            if (expensetitle.isEmpty() || expensetitle.length() < 3) {
+            if (expensetitle.isEmpty()) {
                 etExpenseTitle.setError("Required valid Expense Title");
                 error = true;
+                return;
             }
         } else {
             expensetitle = "item";

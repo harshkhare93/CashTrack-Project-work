@@ -54,6 +54,9 @@ public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnI
             Intent startTts = new Intent(context, TTSactivity.class);
             startTts.putExtra("trainedge.cashtrack.EXTRA_MSG", msg);
             startTts.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startTts.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startTts.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
             context.startActivity(startTts);
             //Release the lock
             wl.release();

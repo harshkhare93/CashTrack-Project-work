@@ -53,9 +53,9 @@ public class TTSactivity extends AppCompatActivity implements TextToSpeech.OnIni
         if (status == TextToSpeech.SUCCESS) {
             engine.setLanguage(Locale.ENGLISH);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                engine.speak(msg, TextToSpeech.QUEUE_FLUSH, null, null);
+                // engine.speak(msg, TextToSpeech.QUEUE_FLUSH, null, null);
             } else {
-                engine.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
+                //  engine.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
             }
         }
     }

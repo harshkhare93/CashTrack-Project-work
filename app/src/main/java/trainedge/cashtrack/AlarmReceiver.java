@@ -23,7 +23,6 @@ import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 
-
 public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnInitListener {
     final public static String ONE_TIME = "trainedge.cashtrack.onetime";
     final public static String REPEATING = "trainedge.cashtrack.reapeating";
@@ -38,26 +37,30 @@ public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnI
         //Acquire the lock
         wl.acquire();
 
-        //You can do the processing here.
-        Bundle extras = intent.getExtras();
-        StringBuilder msgStr = new StringBuilder();
+        if (intent.getAction().equals("trainedge.cashtrack.MY_ALARM")){
+            //You can do the processing here.
+            Bundle extras = intent.getExtras();
+            StringBuilder msgStr = new StringBuilder();
 
-        if (extras != null && extras.getBoolean(ONE_TIME, Boolean.FALSE)) {
-            //Make sure this intent has been sent by the one-time timer button.
-            msgStr.append("Add your expenses ");
-        }
-        Format formatter = new SimpleDateFormat("hh:mm:ss a");
-        msgStr.append(formatter.format(new Date()));
-        msg = "Time to add some expense for " + msgStr;
-        NewMessageNotification.notify(context, msg, 0);
-        pref = context.getSharedPreferences(Constants.SETTING_PREF, MODE_PRIVATE);
-        boolean isTTSenabled = pref.getBoolean(Constants.KEY_TTS, true);
+            if (extras != null && extras.getBoolean(ONE_TIME, Boolean.FALSE)) {
+                //Make sure this intent has been sent by the one-time timer button.
+                msgStr.append("Add your expenses ");
+            }
+            Format formatter = new SimpleDateFormat("hh:mm:ss a");
+            msgStr.append(formatter.format(new Date()));
+            msg = "Time to add some expense for " + msgStr;
+            NewMessageNotification.notify(context, msg, 0);
+            pref = context.getSharedPreferences(Constants.SETTING_PREF, MODE_PRIVATE);
 
-        if (isTTSenabled) {
-            engine = new TextToSpeech(context, this);
+            //Release the lock
+            wl.release();
         }
-        //Release the lock
-        wl.release();
+        if (intent.getAction().equals("trainedge.cashtrack.EVENT_ALARM")){
+            msg = intent.getStringExtra("trainedge.cashtrack.EXTRA_MSG");
+            NewMessageNotification.notify(context, msg, 0);
+        }
+
+
     }
 
     public void SetAlarm(Context context, int hourOfDay, int minute) {
@@ -68,12 +71,17 @@ public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnI
             calSet.set(Calendar.MINUTE, minute);
             calSet.set(Calendar.SECOND, 0);
             calSet.set(Calendar.MILLISECOND, 0);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, new Intent("trainedge.cashtrack.MY_ALARM"), PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent intent = new Intent("trainedge.cashtrack.MY_ALARM");
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
             Log.i("SERVICE", "alarm set" + i);
         }
     }
+
+
+
 
     public void CancelAlarm(Context context) {
         Intent intent = new Intent(context, SettingsActivity.class);
@@ -100,5 +108,24 @@ public class AlarmReceiver extends BroadcastReceiver implements TextToSpeech.OnI
                 engine.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
             }
         }
+    }
+
+    public void SetAlarm(Context context, Date selectedDate, int hourOfDay, int minute,String msg) {
+        Calendar calSet = Calendar.getInstance();
+        calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calSet.set(Calendar.MINUTE, minute);
+        calSet.set(Calendar.SECOND, 0);
+        calSet.set(Calendar.MILLISECOND, 0);
+        calSet.set(Calendar.YEAR,selectedDate.getYear()+1900);
+        calSet.set(Calendar.MONTH,selectedDate.getMonth());
+        calSet.set(Calendar.DAY_OF_WEEK,selectedDate.getDay());
+        Intent intent = new Intent("trainedge.cashtrack.EVENT_ALARM");
+        intent.putExtra("trainedge.cashtrack.EXTRA_MSG",msg);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calSet.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);
+        Log.i("SERVICE", "alarm set");
+        Toast.makeText(context, "Event schedule completed", Toast.LENGTH_SHORT).show();
     }
 }

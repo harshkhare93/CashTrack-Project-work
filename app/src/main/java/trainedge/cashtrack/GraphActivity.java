@@ -53,8 +53,7 @@ public class GraphActivity extends AppCompatActivity {
             }
         });
         tvAmtRemaining = (TextView) findViewById(R.id.tvRemainingAmount);
-        tvTotalSalary = (TextView) findViewById(R.id.tvTotalSalary);
-        tvTotalSalary.setVisibility(View.GONE);
+
         barChart = (BarChart) findViewById(R.id.chart);
 
         entries = new ArrayList<BarEntry>();

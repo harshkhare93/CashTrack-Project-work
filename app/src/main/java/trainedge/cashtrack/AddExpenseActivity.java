@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.view.View.GONE;
 
@@ -93,19 +94,25 @@ public class AddExpenseActivity extends AppCompatActivity {
     }
 
     private void showDatePickerDialog() {
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                btnDatePick.setText("" + dayOfMonth + "/" + (month + 1) + "/" + year);
+                String currentDatestr = "" + dayOfMonth + "/" + (month + 1) + "/" + year;
+
+                btnDatePick.setText(currentDatestr);
                 AddExpenseActivity.this.year = year;
                 AddExpenseActivity.this.month = month + 1;
                 AddExpenseActivity.this.dayOfMonth = dayOfMonth;
+
+
                 customDate = true;
             }
-        }, Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        }, year,
+                Calendar.getInstance().get(month),
+                Calendar.getInstance().get(dayOfMonth));
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
 
